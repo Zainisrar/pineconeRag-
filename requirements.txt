@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+pinecone
+langchain_pinecone
