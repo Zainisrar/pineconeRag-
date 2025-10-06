@@ -205,22 +205,6 @@ def create_domain(domain: Domain):
 
 
 
-@router.put("/domains/{domain_id}")
-def update_domain(domain_id: str, updated_domain: Domain):
-    try:
-        result = domains_collection.update_one(
-            {"_id": ObjectId(domain_id)},
-            {"$set": updated_domain.dict()}
-        )
-
-        if result.matched_count == 0:
-            raise http_error(404, "Domain not found", {"domain_id": domain_id})
-
-        updated = domains_collection.find_one({"_id": ObjectId(domain_id)})
-        return {"success": True, "message": "Domain updated successfully", "data": serialize(updated)}
-
-    except Exception as e:
-        raise http_error(500, "Failed to update domain", {"error": str(e)})
 
 
 @router.delete("/domains/{domain_id}")
